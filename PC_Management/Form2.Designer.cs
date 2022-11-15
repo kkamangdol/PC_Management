@@ -187,7 +187,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(167, 61);
             this.button1.TabIndex = 3;
-            this.button1.Text = "초기화하기";
+            this.button1.Text = "내용 지우기";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
