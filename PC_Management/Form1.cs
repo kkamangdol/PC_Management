@@ -31,7 +31,7 @@ namespace PC_Management
         private DataTable GetData()
         {
             OracleConnection conn = new OracleConnection(strConn);
-            OracleDataAdapter adapter = new OracleDataAdapter("select * from CPU_TABLE where CPU_TYPE = NVL('" + Cb_CPU_Type.Text + "', CPU_TYPE) and USER_TEAM = NVL('" + Cb_User_Team.Text + "', USER_TEAM) order by CPU_Num ASC", conn);
+            OracleDataAdapter adapter = new OracleDataAdapter("select * from CPU_TABLE where CPU_TYPE = NVL('" + Cb_CPU_Type.Text + "', CPU_TYPE) and USER_TEAM = NVL('" + Cb_User_Team.Text + "', USER_TEAM) order by CPU_Num DESC", conn);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
@@ -88,7 +88,7 @@ namespace PC_Management
         private DataTable Search_CPU_TypeData()
         {
             OracleConnection conn = new OracleConnection(strConn);
-            OracleDataAdapter adapter = new OracleDataAdapter("select * from CPU_TABLE where CPU_TYPE = NVL('" + Cb_CPU_Type.Text + "', CPU_TYPE) and USER_TEAM = NVL('" + Cb_User_Team.Text + "', USER_TEAM) order by CPU_Num ASC", conn);
+            OracleDataAdapter adapter = new OracleDataAdapter("select * from CPU_TABLE where CPU_TYPE = NVL('" + Cb_CPU_Type.Text + "', CPU_TYPE) and USER_TEAM = NVL('" + Cb_User_Team.Text + "', USER_TEAM) order by CPU_Num DESC", conn);
             DataTable dt1 = new DataTable();
             adapter.Fill(dt1);
 
@@ -143,7 +143,7 @@ namespace PC_Management
         private DataTable Search_User_TeamData()
         {
             OracleConnection conn = new OracleConnection(strConn);
-            OracleDataAdapter adapter = new OracleDataAdapter("select * from CPU_TABLE where CPU_TYPE = NVL('" + Cb_CPU_Type.Text + "', CPU_TYPE) and USER_TEAM = NVL('" + Cb_User_Team.Text + "', USER_TEAM) order by CPU_Num ASC", conn);
+            OracleDataAdapter adapter = new OracleDataAdapter("select * from CPU_TABLE where CPU_TYPE = NVL('" + Cb_CPU_Type.Text + "', CPU_TYPE) and USER_TEAM = NVL('" + Cb_User_Team.Text + "', USER_TEAM) order by CPU_Num DESC", conn);
             DataTable dt2 = new DataTable();
             adapter.Fill(dt2);
 
@@ -267,6 +267,9 @@ namespace PC_Management
             DataTable dt = GetData();
             dataGridView1.DataSource = dt;
 
+            // 자동으로 선택되는 셀 해제
+            dataGridView1.CurrentCell = null;
+
             // 메세지박스
             MessageBox.Show("등록이 완료되었습니다!", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -296,9 +299,6 @@ namespace PC_Management
             {
                 item.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-
-            // 자동으로 선택되는 셀 해제
-            dataGridView1.CurrentCell = null;
 
             // 마우스 커서 원래대로
             this.Cursor = Cursors.Default;
@@ -373,6 +373,7 @@ namespace PC_Management
 
             // 자동으로 선택되는 셀 해제
             dataGridView1.CurrentCell = null;
+
 
             // 메세지박스
             MessageBox.Show("수정이 완료되었습니다!", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
