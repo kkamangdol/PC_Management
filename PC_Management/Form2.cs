@@ -34,7 +34,7 @@ namespace PC_Management
         private DataTable DetailData()
         {
             OracleConnection conn = new OracleConnection(strConn);
-            OracleDataAdapter adapter = new OracleDataAdapter("select * from program_serial where CPU_Num like " + text_CPU_Num2.Text + " order by CPU_Num ASC", conn);
+            OracleDataAdapter adapter = new OracleDataAdapter("select * from program_serial where CPU_Num like '" + text_CPU_Num2.Text + "' order by CPU_Num ", conn);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
@@ -80,6 +80,13 @@ namespace PC_Management
 
         //  셀 선택해서 데이터 뽑아오기
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = dataGridView1.SelectedRows[0];
+            text_Program2.Text = row.Cells[1].Value.ToString();
+            text_Serial2.Text = row.Cells[2].Value.ToString();
+        }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
             DataGridViewRow row = dataGridView1.SelectedRows[0];
             text_Program2.Text = row.Cells[1].Value.ToString();

@@ -74,7 +74,6 @@ namespace PC_Management
             {
                 item.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-
             // 자동으로 선택되는 셀 해제
             dataGridView1.CurrentCell = null;
 
@@ -82,19 +81,21 @@ namespace PC_Management
             this.Cursor = Cursors.Default;
         }
 
-        
-//  2. 컴퓨터타입 조회(콤보박스)
+
+//  2. 콤보박스 조회
+
+        // 컴퓨터타입 조회(콤보박스)
         private DataTable Search_CPU_TypeData()
         {
             OracleConnection conn = new OracleConnection(strConn);
-            OracleDataAdapter adapter = new OracleDataAdapter("select * from CPU_TABLE where CPU_Type like '%" + Cb_CPU_Type.Text + "%' ", conn);
-            DataTable dt4 = new DataTable();
-            adapter.Fill(dt4);
+            OracleDataAdapter adapter = new OracleDataAdapter("select * from CPU_TABLE where CPU_Type like '" + Cb_CPU_Type.Text + "' ", conn);
+            /*            OracleDataAdapter adapter = new OracleDataAdapter("select * from CPU_TABLE where CPU_Num like '" + Cb_CPU_Type.Text + "' or User_Team like '" + Cb_User_Team.Text + "' order by CPU_Num ASC", conn);*/
+            DataTable dt1 = new DataTable();
+            adapter.Fill(dt1);
 
-            return dt4;
+            return dt1;
         }
 
-        // 컴퓨터타입 조회(콤보박스)
         private void Cb_CPU_Type_SelectionChangeCommitted(object sender, EventArgs e)
         {
             // 마우스 커서 Waitting
@@ -137,27 +138,84 @@ namespace PC_Management
 
             // 마우스 커서 원래대로
             this.Cursor = Cursors.Default;
+
+            Cb_User_Team.SelectedIndex = 0;
+        }
+
+        // 사용팀 조회(콤보박스)
+        private DataTable Search_User_TeamData()
+        {
+            OracleConnection conn = new OracleConnection(strConn);
+            OracleDataAdapter adapter = new OracleDataAdapter("select * from CPU_TABLE where User_Team like '" + Cb_User_Team.Text + "' ", conn);
+            DataTable dt2 = new DataTable();
+            adapter.Fill(dt2);
+
+            return dt2;
+        }
+        private void Cb_User_Team_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            // 마우스 커서 Waitting
+            this.Cursor = Cursors.WaitCursor;
+
+            // 데이터그리드뷰에 띄우기
+            DataTable dt = Search_User_TeamData();
+            dataGridView1.DataSource = dt;
+
+            // 컬럼명 변경
+            this.dataGridView1.Columns[0].HeaderText = "컴퓨터 번호";
+            this.dataGridView1.Columns[1].HeaderText = "컴퓨터 종류";
+            this.dataGridView1.Columns[2].HeaderText = "윈도우 버전";
+            this.dataGridView1.Columns[3].HeaderText = "구매일";
+            this.dataGridView1.Columns[4].HeaderText = "사용 여부";
+            this.dataGridView1.Columns[5].HeaderText = "IP 주소";
+            this.dataGridView1.Columns[6].HeaderText = "사용자 이름";
+            this.dataGridView1.Columns[7].HeaderText = "사용팀";
+            this.dataGridView1.Columns[8].HeaderText = "사용 지역";
+            this.dataGridView1.Columns[9].HeaderText = "사용 구분";
+
+            // 데이터 조회시 끊김 줄이기
+            dataGridView1.DoubleBuffered(true);
+
+            // 행 색변경
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            // 여러 행 선택 방지
+            dataGridView1.MultiSelect = false;
+
+            // 전체 컬럼의 Sorting 기능 차단
+            foreach (DataGridViewColumn item in dataGridView1.Columns)
+            {
+                item.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+            // 자동으로 선택되는 셀 해제
+            dataGridView1.CurrentCell = null;
+
+            // 마우스 커서 원래대로
+            this.Cursor = Cursors.Default;
+
+            Cb_CPU_Type.SelectedIndex = 0;
         }
 
 
  // 3. 콤보박스에 보여질 DB 아이템 
-
-        // Fixed_Table(User_Team) 연결
-        private DataTable User_TeamData()
-        {
-            OracleConnection conn = new OracleConnection(strConn);
-            OracleDataAdapter adapter = new OracleDataAdapter("select code_data from Fixed_Table where code_part = 'USER_TEAM'", conn);
-            DataTable dt1 = new DataTable();
-            adapter.Fill(dt1);
-
-            return dt1;
-        }
 
         // Fixed_Table(Cpu_Type) 연결
         public DataTable Cpu_TypeData()
         {
             OracleConnection conn = new OracleConnection(strConn);
             OracleDataAdapter adapter = new OracleDataAdapter("select code_data from Fixed_Table where code_part = 'CPU_TYPE'", conn);
+            DataTable dt1 = new DataTable();
+            adapter.Fill(dt1);
+
+            return dt1;
+        }
+
+        // Fixed_Table(User_Team) 연결
+        private DataTable User_TeamData()
+        {
+            OracleConnection conn = new OracleConnection(strConn);
+            OracleDataAdapter adapter = new OracleDataAdapter("select code_data from Fixed_Table where code_part = 'USER_TEAM'", conn);
             DataTable dt2 = new DataTable();
             adapter.Fill(dt2);
 
@@ -168,22 +226,28 @@ namespace PC_Management
         private void Form1_Load(object sender, EventArgs e)
         {
             // Fixed_Table(Cpu_Type) ComboBpx
-            DataTable dt2 = Cpu_TypeData();
-            Cb_CPU_Type.DataSource = dt2;
+            DataTable dt1 = Cpu_TypeData();
+            Cb_CPU_Type.DataSource = dt1;
             Cb_CPU_Type.DisplayMember = "CODE_DATA";
             Cb_CPU_Type.SelectedIndex = 0;
 
             //Fixed_Table(User_Team) ComboBox
-            DataTable dt1_c = User_TeamData();
-            Cb_User_Team_c.DataSource = dt1_c;
-            Cb_User_Team_c.DisplayMember = "CODE_DATA";
-            Cb_User_Team_c.SelectedIndex = 0;
+            DataTable dt2 = User_TeamData();
+            Cb_User_Team.DataSource = dt2;
+            Cb_User_Team.DisplayMember = "CODE_DATA";
+            Cb_User_Team.SelectedIndex = 0;
 
             // Fixed_Table(Cpu_Type) ComboBpx
-            DataTable dt2_c = Cpu_TypeData();
-            Cb_CPU_Type_c.DataSource = dt2_c;
+            DataTable dt1_c = Cpu_TypeData();
+            Cb_CPU_Type_c.DataSource = dt1_c;
             Cb_CPU_Type_c.DisplayMember = "CODE_DATA";
             Cb_CPU_Type_c.SelectedIndex = 0;
+
+            //Fixed_Table(User_Team) ComboBox
+            DataTable dt2_c = User_TeamData();
+            Cb_User_Team_c.DataSource = dt2_c;
+            Cb_User_Team_c.DisplayMember = "CODE_DATA";
+            Cb_User_Team_c.SelectedIndex = 0;
         }
 
 
@@ -436,7 +500,7 @@ namespace PC_Management
 
 // 7. 데이터 가져오기
 
-        //  셀 선택해서 데이터 뽑아오기
+        //  셀 선택해서 데이터 뽑아오기(마우스 클릭)
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dataGridView1.SelectedRows[0];
@@ -452,6 +516,23 @@ namespace PC_Management
             text_User_Usage.Text = row.Cells[9].Value.ToString();
 
         }
+
+        //  셀 선택해서 데이터 뽑아오기(키패드) 
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            DataGridViewRow row = dataGridView1.SelectedRows[0];
+            text_CPU_Num.Text = row.Cells[0].Value.ToString();
+            Cb_CPU_Type_c.Text = row.Cells[1].Value.ToString();
+            text_Win_Ver.Text = row.Cells[2].Value.ToString();
+            dtp_Purchase_Date.Text = row.Cells[3].Value.ToString();
+            text_Usage_Status.Text = row.Cells[4].Value.ToString();
+            text_CPU_IP.Text = row.Cells[5].Value.ToString();
+            text_User_Name.Text = row.Cells[6].Value.ToString();
+            Cb_User_Team_c.Text = row.Cells[7].Value.ToString();
+            text_User_Area.Text = row.Cells[8].Value.ToString();
+            text_User_Usage.Text = row.Cells[9].Value.ToString();
+        }
+
 
         // 뽑아온 데이터 지우기
         private void button1_Click(object sender, EventArgs e)
@@ -492,7 +573,9 @@ namespace PC_Management
             this.Cursor = Cursors.Default;
         }
     }
-// 9. 데이터 조회시 끊김 줄이기
+
+
+    // 9. 데이터 조회시 끊김 줄이기
     public static class ExtensionMethods
     {
         public static void DoubleBuffered(this DataGridView dgv, bool setting)
