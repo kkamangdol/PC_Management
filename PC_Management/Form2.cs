@@ -160,7 +160,7 @@ namespace PC_Management
             {
                 Console.WriteLine(ex.Message);
                 // 메세지박스
-                MessageBox.Show("프로그램 중복 혹은 빈칸이 있습니다!", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("프로그램명 중복 혹은 빈칸이 있습니다!", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
