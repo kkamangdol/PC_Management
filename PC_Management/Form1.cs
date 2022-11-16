@@ -249,70 +249,82 @@ namespace PC_Management
 // 4. 등록하기
         private void Bt_Create_Click(object sender, EventArgs e)
         {
-            OracleConnection conn = new OracleConnection(strConn);
-            conn.Open();
-
-            OracleCommand cmd = new OracleCommand();
-            cmd.Connection = conn;
-
-            cmd.CommandText = "insert into CPU_TABLE values ('"+ text_CPU_Num.Text +"','" + Cb_CPU_Type_c.Text + "','" + text_Win_Ver.Text + "','" + dtp_Purchase_Date.Text + "','" + text_Usage_Status.Text + "','" + text_CPU_IP.Text + "','" + text_User_Name.Text + "','" + Cb_User_Team_c.Text + "','" + text_User_Area.Text + "','" + text_User_Usage.Text + "')";
-            cmd.ExecuteNonQuery();
-
-            conn.Close();
-
-            // 마우스 커서 Waitting
-            this.Cursor = Cursors.WaitCursor;
-
-            // 데이터그리드뷰에 띄우기
-            DataTable dt = GetData();
-            dataGridView1.DataSource = dt;
-
-            // 자동으로 선택되는 셀 해제
-            dataGridView1.CurrentCell = null;
-
-            // 메세지박스
-            MessageBox.Show("등록이 완료되었습니다!", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // 컬럼명 변경
-            this.dataGridView1.Columns[0].HeaderText = "컴퓨터 번호";
-            this.dataGridView1.Columns[1].HeaderText = "컴퓨터 종류";
-            this.dataGridView1.Columns[2].HeaderText = "윈도우 버전";
-            this.dataGridView1.Columns[3].HeaderText = "구매일";
-            this.dataGridView1.Columns[4].HeaderText = "사용여부";
-            this.dataGridView1.Columns[5].HeaderText = "IP 주소";
-            this.dataGridView1.Columns[6].HeaderText = "사용자 이름";
-            this.dataGridView1.Columns[7].HeaderText = "사용팀";
-            this.dataGridView1.Columns[8].HeaderText = "사용 지역";
-            this.dataGridView1.Columns[9].HeaderText = "사용 구분";
-
-            // 데이터 조회시 끊김 줄이기
-            dataGridView1.DoubleBuffered(true);
-
-            // 행 색변경
-            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
-
-            // 여러 행 선택 방지
-            dataGridView1.MultiSelect = false;
-
-            // 전체 컬럼의 Sorting 기능 차단
-            foreach (DataGridViewColumn item in dataGridView1.Columns)
+            try
             {
-                item.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                OracleConnection conn = new OracleConnection(strConn);
+                conn.Open();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+
+                cmd.CommandText = "insert into CPU_TABLE values ('" + text_CPU_Num.Text + "','" + Cb_CPU_Type_c.Text + "','" + text_Win_Ver.Text + "','" + dtp_Purchase_Date.Text + "','" + text_Usage_Status.Text + "','" + text_CPU_IP.Text + "','" + text_User_Name.Text + "','" + Cb_User_Team_c.Text + "','" + text_User_Area.Text + "','" + text_User_Usage.Text + "')";
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                // 마우스 커서 Waitting
+                this.Cursor = Cursors.WaitCursor;
+
+                // 데이터그리드뷰에 띄우기
+                DataTable dt = GetData();
+                dataGridView1.DataSource = dt;
+
+                // 자동으로 선택되는 셀 해제
+                dataGridView1.CurrentCell = null;
+
+                // 메세지박스
+                MessageBox.Show("등록이 완료되었습니다!", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // 컬럼명 변경
+                this.dataGridView1.Columns[0].HeaderText = "컴퓨터 번호";
+                this.dataGridView1.Columns[1].HeaderText = "컴퓨터 종류";
+                this.dataGridView1.Columns[2].HeaderText = "윈도우 버전";
+                this.dataGridView1.Columns[3].HeaderText = "구매일";
+                this.dataGridView1.Columns[4].HeaderText = "사용여부";
+                this.dataGridView1.Columns[5].HeaderText = "IP 주소";
+                this.dataGridView1.Columns[6].HeaderText = "사용자 이름";
+                this.dataGridView1.Columns[7].HeaderText = "사용팀";
+                this.dataGridView1.Columns[8].HeaderText = "사용 지역";
+                this.dataGridView1.Columns[9].HeaderText = "사용 구분";
+
+                // 데이터 조회시 끊김 줄이기
+                dataGridView1.DoubleBuffered(true);
+
+                // 행 색변경
+                dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+                // 여러 행 선택 방지
+                dataGridView1.MultiSelect = false;
+
+                // 전체 컬럼의 Sorting 기능 차단
+                foreach (DataGridViewColumn item in dataGridView1.Columns)
+                {
+                    item.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
+
+                // 마우스 커서 원래대로
+                this.Cursor = Cursors.Default;
+
+                // 텍스트박스 빈칸
+                text_CPU_Num.Clear();
+                text_Win_Ver.Clear();
+                text_Usage_Status.Clear();
+                text_CPU_IP.Clear();
+                text_User_Name.Clear();
+                text_User_Area.Clear();
+                text_User_Usage.Clear();
+                Cb_User_Team_c.SelectedIndex = 0;
+                Cb_CPU_Type_c.SelectedIndex = 0;
             }
 
-            // 마우스 커서 원래대로
-            this.Cursor = Cursors.Default;
-
-            // 텍스트박스 빈칸
-            text_CPU_Num.Clear();
-            text_Win_Ver.Clear();
-            text_Usage_Status.Clear();
-            text_CPU_IP.Clear();
-            text_User_Name.Clear();
-            text_User_Area.Clear();
-            text_User_Usage.Clear();
-            Cb_User_Team_c.SelectedIndex = 0;
-            Cb_CPU_Type_c.SelectedIndex = 0;
+            // 예외처리
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+                // 메세지박스
+                MessageBox.Show("컴퓨터 번호 중복 혹은 필수란에 빈칸이 있습니다!", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 

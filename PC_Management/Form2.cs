@@ -104,56 +104,64 @@ namespace PC_Management
 // 3. 등록하기
         private void Bt_Create2_Click(object sender, EventArgs e)
         {
-            OracleConnection conn = new OracleConnection(strConn);
-            conn.Open();
-
-            OracleCommand cmd = new OracleCommand();
-            cmd.Connection = conn;
-
-            cmd.CommandText = "insert into PROGRAM_SERIAL values ('" + text_CPU_Num2.Text + "','" + text_Program2.Text + "','" + text_Serial2.Text + "')";
-            cmd.ExecuteNonQuery();
-
-            conn.Close();
-
-            // 마우스 커서 Waitting
-            this.Cursor = Cursors.WaitCursor;
-
-            // 데이터그리드뷰에 띄우기
-            DataTable dt = DetailData();
-            dataGridView1.DataSource = dt;
-
-            // 컬럼명 변경
-            this.dataGridView1.Columns[0].HeaderText = "컴퓨터 번호";
-            this.dataGridView1.Columns[1].HeaderText = "프로그램명";
-            this.dataGridView1.Columns[2].HeaderText = "씨리얼넘버";
-
-            // 데이터 조회시 끊김 줄이기
-            dataGridView1.DoubleBuffered(true);
-
-            // 행 색변경
-            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
-
-            // 여러 행 선택 방지
-            dataGridView1.MultiSelect = false;
-
-            // 전체 컬럼의 Sorting 기능 차단
-            foreach (DataGridViewColumn item in dataGridView1.Columns)
+            try
             {
-                item.SortMode = DataGridViewColumnSortMode.NotSortable;
+                OracleConnection conn = new OracleConnection(strConn);
+                conn.Open();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+
+                cmd.CommandText = "insert into PROGRAM_SERIAL values ('" + text_CPU_Num2.Text + "','" + text_Program2.Text + "','" + text_Serial2.Text + "')";
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                // 마우스 커서 Waitting
+                this.Cursor = Cursors.WaitCursor;
+
+                // 데이터그리드뷰에 띄우기
+                DataTable dt = DetailData();
+                dataGridView1.DataSource = dt;
+
+                // 컬럼명 변경
+                this.dataGridView1.Columns[0].HeaderText = "컴퓨터 번호";
+                this.dataGridView1.Columns[1].HeaderText = "프로그램명";
+                this.dataGridView1.Columns[2].HeaderText = "씨리얼넘버";
+
+                // 데이터 조회시 끊김 줄이기
+                dataGridView1.DoubleBuffered(true);
+
+                // 행 색변경
+                dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+                // 여러 행 선택 방지
+                dataGridView1.MultiSelect = false;
+
+                // 전체 컬럼의 Sorting 기능 차단
+                foreach (DataGridViewColumn item in dataGridView1.Columns)
+                {
+                    item.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
+
+                // 메세지박스
+                MessageBox.Show("등록이 완료되었습니다!", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // 마우스 커서 원래대로
+                this.Cursor = Cursors.Default;
+
+                // 텍스트박스 빈칸
+                text_Program2.Clear();
+                text_Serial2.Clear();
             }
 
-            // 자동으로 선택되는 셀 해제
-            dataGridView1.CurrentCell = null;
-
-            // 메세지박스
-            MessageBox.Show("등록이 완료되었습니다!", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // 마우스 커서 원래대로
-            this.Cursor = Cursors.Default;
-
-            // 텍스트박스 빈칸
-            text_Program2.Clear();
-            text_Serial2.Clear();
+            // 예외처리
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+                // 메세지박스
+                MessageBox.Show("프로그램 중복 혹은 빈칸이 있습니다!", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -170,7 +178,7 @@ namespace PC_Management
             OracleCommand cmd = new OracleCommand();
             cmd.Connection = conn;
 
-            cmd.CommandText = "DELETE FROM PROGRAM_SERIAL WHERE Serial = '" + text_Serial2.Text + "'";
+            cmd.CommandText = "DELETE FROM PROGRAM_SERIAL WHERE Serial = '" + text_Serial2.Text + "' and program = '" + text_Program2.Text + "'" ;
             cmd.ExecuteNonQuery();
 
             adapter = new OracleDataAdapter(cmd);
