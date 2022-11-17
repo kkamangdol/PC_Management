@@ -57,8 +57,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.text_Win_Ver = new System.Windows.Forms.TextBox();
-            this.text_Usage_Status = new System.Windows.Forms.TextBox();
             this.text_CPU_IP = new System.Windows.Forms.TextBox();
             this.text_User_Area = new System.Windows.Forms.TextBox();
             this.Cb_User_Team_c = new System.Windows.Forms.ComboBox();
@@ -69,6 +67,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.label13 = new System.Windows.Forms.Label();
+            this.Cb_Win_Ver_c = new System.Windows.Forms.ComboBox();
+            this.Cb_Usage_Status_c = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -353,8 +353,6 @@
             this.tableLayoutPanel6.Controls.Add(this.label8, 1, 15);
             this.tableLayoutPanel6.Controls.Add(this.label9, 1, 17);
             this.tableLayoutPanel6.Controls.Add(this.label10, 1, 19);
-            this.tableLayoutPanel6.Controls.Add(this.text_Win_Ver, 1, 6);
-            this.tableLayoutPanel6.Controls.Add(this.text_Usage_Status, 1, 10);
             this.tableLayoutPanel6.Controls.Add(this.text_CPU_IP, 1, 12);
             this.tableLayoutPanel6.Controls.Add(this.text_User_Area, 1, 18);
             this.tableLayoutPanel6.Controls.Add(this.Cb_User_Team_c, 1, 16);
@@ -364,6 +362,8 @@
             this.tableLayoutPanel6.Controls.Add(this.text_CPU_Num, 1, 2);
             this.tableLayoutPanel6.Controls.Add(this.label11, 1, 1);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel9, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.Cb_Win_Ver_c, 1, 6);
+            this.tableLayoutPanel6.Controls.Add(this.Cb_Usage_Status_c, 1, 10);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 100);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
@@ -523,24 +523,6 @@
             this.label10.Text = "사용 구분";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // text_Win_Ver
-            // 
-            this.text_Win_Ver.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.text_Win_Ver.Location = new System.Drawing.Point(103, 358);
-            this.text_Win_Ver.Name = "text_Win_Ver";
-            this.text_Win_Ver.Size = new System.Drawing.Size(193, 28);
-            this.text_Win_Ver.TabIndex = 11;
-            this.text_Win_Ver.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // text_Usage_Status
-            // 
-            this.text_Usage_Status.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.text_Usage_Status.Location = new System.Drawing.Point(103, 554);
-            this.text_Usage_Status.Name = "text_Usage_Status";
-            this.text_Usage_Status.Size = new System.Drawing.Size(193, 28);
-            this.text_Usage_Status.TabIndex = 12;
-            this.text_Usage_Status.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // text_CPU_IP
             // 
             this.text_CPU_IP.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -632,7 +614,7 @@
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 1;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 98F));
             this.tableLayoutPanel9.Size = new System.Drawing.Size(400, 98);
             this.tableLayoutPanel9.TabIndex = 22;
             // 
@@ -645,8 +627,28 @@
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(400, 98);
             this.label13.TabIndex = 0;
-            this.label13.Text = "* 표시 필수 기입 바랍니다";
+            this.label13.Text = "※ * 표시 필수 기입 바랍니다 ※";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Cb_Win_Ver_c
+            // 
+            this.Cb_Win_Ver_c.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Cb_Win_Ver_c.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Cb_Win_Ver_c.FormattingEnabled = true;
+            this.Cb_Win_Ver_c.Location = new System.Drawing.Point(103, 359);
+            this.Cb_Win_Ver_c.Name = "Cb_Win_Ver_c";
+            this.Cb_Win_Ver_c.Size = new System.Drawing.Size(194, 26);
+            this.Cb_Win_Ver_c.TabIndex = 23;
+            // 
+            // Cb_Usage_Status_c
+            // 
+            this.Cb_Usage_Status_c.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Cb_Usage_Status_c.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Cb_Usage_Status_c.FormattingEnabled = true;
+            this.Cb_Usage_Status_c.Location = new System.Drawing.Point(103, 555);
+            this.Cb_Usage_Status_c.Name = "Cb_Usage_Status_c";
+            this.Cb_Usage_Status_c.Size = new System.Drawing.Size(194, 26);
+            this.Cb_Usage_Status_c.TabIndex = 24;
             // 
             // Form1
             // 
@@ -696,8 +698,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox text_Win_Ver;
-        private System.Windows.Forms.TextBox text_Usage_Status;
         private System.Windows.Forms.TextBox text_CPU_IP;
         private System.Windows.Forms.TextBox text_User_Area;
         private System.Windows.Forms.TextBox text_CPU_Num;
@@ -715,6 +715,8 @@
         private System.Windows.Forms.ComboBox Cb_User_Team;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox Cb_Win_Ver_c;
+        private System.Windows.Forms.ComboBox Cb_Usage_Status_c;
     }
 }
 

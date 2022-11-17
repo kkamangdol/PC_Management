@@ -206,15 +206,43 @@ namespace PC_Management
             return dt1;
         }
 
+
+
+
+        // Fixed_Table(Win_Ver) 연결
+        public DataTable Win_VerData()
+        {
+            OracleConnection conn = new OracleConnection(strConn);
+            OracleDataAdapter adapter = new OracleDataAdapter("select code_data from Fixed_Table where code_part = 'WIN_VER'", conn);
+            DataTable dt2 = new DataTable();
+            adapter.Fill(dt2);
+
+            return dt2;
+        }
+
+        // Fixed_Table(Usage_Status) 연결
+        public DataTable Usage_StatusData()
+        {
+            OracleConnection conn = new OracleConnection(strConn);
+            OracleDataAdapter adapter = new OracleDataAdapter("select code_data from Fixed_Table where code_part = 'USAGE_STATUS'", conn);
+            DataTable dt3 = new DataTable();
+            adapter.Fill(dt3);
+
+            return dt3;
+        }
+
+
+
+
         // Fixed_Table(User_Team) 연결
         private DataTable User_TeamData()
         {
             OracleConnection conn = new OracleConnection(strConn);
             OracleDataAdapter adapter = new OracleDataAdapter("select code_data from Fixed_Table where code_part = 'USER_TEAM'", conn);
-            DataTable dt2 = new DataTable();
-            adapter.Fill(dt2);
+            DataTable dt4 = new DataTable();
+            adapter.Fill(dt4);
 
-            return dt2;
+            return dt4;
         }
 
         // 화면켰을때 콤보박스
@@ -231,6 +259,8 @@ namespace PC_Management
             Cb_User_Team.DataSource = dt2;
             Cb_User_Team.DisplayMember = "CODE_DATA";
             Cb_User_Team.SelectedIndex = 0;
+            
+
 
             // Fixed_Table(Cpu_Type) ComboBpx
             DataTable dt1_c = Cpu_TypeData();
@@ -238,9 +268,23 @@ namespace PC_Management
             Cb_CPU_Type_c.DisplayMember = "CODE_DATA";
             Cb_CPU_Type_c.SelectedIndex = 0;
 
+
+            // Fixed_Table(Win_Ver) ComboBpx
+            DataTable dt2_c = Win_VerData();
+            Cb_Win_Ver_c.DataSource = dt2_c;
+            Cb_Win_Ver_c.DisplayMember = "CODE_DATA";
+            Cb_Win_Ver_c.SelectedIndex = 0;
+
+            // Fixed_Table(Usage_Staus) ComboBpx
+            DataTable dt3_c = Usage_StatusData();
+            Cb_Usage_Status_c.DataSource = dt3_c;
+            Cb_Usage_Status_c.DisplayMember = "CODE_DATA";
+            Cb_Usage_Status_c.SelectedIndex = 0;
+
+
             //Fixed_Table(User_Team) ComboBox
-            DataTable dt2_c = User_TeamData();
-            Cb_User_Team_c.DataSource = dt2_c;
+            DataTable dt4_c = User_TeamData();
+            Cb_User_Team_c.DataSource = dt4_c;
             Cb_User_Team_c.DisplayMember = "CODE_DATA";
             Cb_User_Team_c.SelectedIndex = 0;
         }
@@ -258,7 +302,7 @@ namespace PC_Management
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
 
-                cmd.CommandText = "insert into CPU_TABLE values ('" + text_CPU_Num.Text + "','" + Cb_CPU_Type_c.Text + "','" + text_Win_Ver.Text + "','" + dtp_Purchase_Date.Text + "','" + text_Usage_Status.Text + "','" + text_CPU_IP.Text + "','" + text_User_Name.Text + "','" + Cb_User_Team_c.Text + "','" + text_User_Area.Text + "','" + text_User_Usage.Text + "')";
+                cmd.CommandText = "insert into CPU_TABLE values ('" + text_CPU_Num.Text + "','" + Cb_CPU_Type_c.Text + "','" + Cb_Win_Ver_c.Text + "','" + dtp_Purchase_Date.Text + "','" + Cb_Usage_Status_c.Text + "','" + text_CPU_IP.Text + "','" + text_User_Name.Text + "','" + Cb_User_Team_c.Text + "','" + text_User_Area.Text + "','" + text_User_Usage.Text + "')";
                 cmd.ExecuteNonQuery();
 
                 conn.Close();
@@ -308,14 +352,15 @@ namespace PC_Management
 
                 // 텍스트박스 빈칸
                 text_CPU_Num.Clear();
-                text_Win_Ver.Clear();
-                text_Usage_Status.Clear();
                 text_CPU_IP.Clear();
                 text_User_Name.Clear();
                 text_User_Area.Clear();
                 text_User_Usage.Clear();
-                Cb_User_Team_c.SelectedIndex = 0;
+
                 Cb_CPU_Type_c.SelectedIndex = 0;
+                Cb_Win_Ver_c.SelectedIndex = 0;
+                Cb_Usage_Status_c.SelectedIndex = 0;
+                Cb_User_Team_c.SelectedIndex = 0;
             }
 
             // 예외처리
@@ -343,7 +388,7 @@ namespace PC_Management
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
 
-                cmd.CommandText = "update CPU_TABLE SET cpu_type = '" + Cb_CPU_Type_c.Text + "',win_ver = '" + text_Win_Ver.Text + "', purchase_date = '" + dtp_Purchase_Date.Text + "',usage_status = '" + text_Usage_Status.Text + "',cpu_ip = '" + text_CPU_IP.Text + "',user_name = '" + text_User_Name.Text + "', user_team = '" + Cb_User_Team_c.Text + "',user_area = '" + text_User_Area.Text + "', user_usage = '" + text_User_Usage.Text + "' where cpu_num = '" + text_CPU_Num.Text + "'";
+                cmd.CommandText = "update CPU_TABLE SET cpu_type = '" + Cb_CPU_Type_c.Text + "',win_ver = '" + Cb_Win_Ver_c.Text + "', purchase_date = '" + dtp_Purchase_Date.Text + "',usage_status = '" + Cb_Usage_Status_c.Text + "',cpu_ip = '" + text_CPU_IP.Text + "',user_name = '" + text_User_Name.Text + "', user_team = '" + Cb_User_Team_c.Text + "',user_area = '" + text_User_Area.Text + "', user_usage = '" + text_User_Usage.Text + "' where cpu_num = '" + text_CPU_Num.Text + "'";
                 cmd.ExecuteNonQuery();
 
                 adapter = new OracleDataAdapter(cmd);
@@ -397,14 +442,15 @@ namespace PC_Management
 
                 // 텍스트박스 빈칸
                 text_CPU_Num.Clear();
-                text_Win_Ver.Clear();
-                text_Usage_Status.Clear();
                 text_CPU_IP.Clear();
                 text_User_Name.Clear();
                 text_User_Area.Clear();
                 text_User_Usage.Clear();
-                Cb_User_Team_c.SelectedIndex = 0;
+
                 Cb_CPU_Type_c.SelectedIndex = 0;
+                Cb_Win_Ver_c.SelectedIndex = 0;
+                Cb_Usage_Status_c.SelectedIndex = 0;
+                Cb_User_Team_c.SelectedIndex = 0;
             }
             // 예외처리
             catch (OracleException ex)
@@ -504,15 +550,15 @@ namespace PC_Management
 
             // 텍스트박스 빈칸
             text_CPU_Num.Clear();
-            text_Win_Ver.Clear();
-            text_Usage_Status.Clear();
             text_CPU_IP.Clear();
             text_User_Name.Clear();
             text_User_Area.Clear();
             text_User_Usage.Clear();
-            Cb_User_Team_c.SelectedIndex = 0;
-            Cb_CPU_Type_c.SelectedIndex = 0;
 
+            Cb_CPU_Type_c.SelectedIndex = 0;
+            Cb_Win_Ver_c.SelectedIndex = 0;
+            Cb_Usage_Status_c.SelectedIndex = 0;
+            Cb_User_Team_c.SelectedIndex = 0;
         }
 
 
@@ -524,9 +570,9 @@ namespace PC_Management
             DataGridViewRow row = dataGridView1.SelectedRows[0];
             text_CPU_Num.Text = row.Cells[0].Value.ToString();
             Cb_CPU_Type_c.Text = row.Cells[1].Value.ToString();
-            text_Win_Ver.Text = row.Cells[2].Value.ToString();
+            Cb_Win_Ver_c.Text = row.Cells[2].Value.ToString();
             dtp_Purchase_Date.Text = row.Cells[3].Value.ToString();
-            text_Usage_Status.Text = row.Cells[4].Value.ToString();
+            Cb_Usage_Status_c.Text = row.Cells[4].Value.ToString();
             text_CPU_IP.Text = row.Cells[5].Value.ToString();
             text_User_Name.Text = row.Cells[6].Value.ToString();
             Cb_User_Team_c.Text = row.Cells[7].Value.ToString();
@@ -541,9 +587,9 @@ namespace PC_Management
             DataGridViewRow row = dataGridView1.SelectedRows[0];
             text_CPU_Num.Text = row.Cells[0].Value.ToString();
             Cb_CPU_Type_c.Text = row.Cells[1].Value.ToString();
-            text_Win_Ver.Text = row.Cells[2].Value.ToString();
+            Cb_Win_Ver_c.Text = row.Cells[2].Value.ToString();
             dtp_Purchase_Date.Text = row.Cells[3].Value.ToString();
-            text_Usage_Status.Text = row.Cells[4].Value.ToString();
+            Cb_Usage_Status_c.Text = row.Cells[4].Value.ToString();
             text_CPU_IP.Text = row.Cells[5].Value.ToString();
             text_User_Name.Text = row.Cells[6].Value.ToString();
             Cb_User_Team_c.Text = row.Cells[7].Value.ToString();
@@ -556,15 +602,15 @@ namespace PC_Management
         private void button1_Click(object sender, EventArgs e)
         {
             text_CPU_Num.Clear();
-            text_Win_Ver.Clear();
-            text_Usage_Status.Clear();
             text_CPU_IP.Clear();
             text_User_Name.Clear();
             text_User_Area.Clear();
             text_User_Usage.Clear();
 
-            Cb_User_Team_c.SelectedIndex = 0;
             Cb_CPU_Type_c.SelectedIndex = 0;
+            Cb_Win_Ver_c.SelectedIndex = 0;
+            Cb_Usage_Status_c.SelectedIndex = 0;
+            Cb_User_Team_c.SelectedIndex = 0;
         }
 
 
