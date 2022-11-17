@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -153,14 +153,14 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 103);
@@ -485,7 +485,6 @@
             this.text_User_Usage.Name = "text_User_Usage";
             this.text_User_Usage.Size = new System.Drawing.Size(193, 28);
             this.text_User_Usage.TabIndex = 16;
-            this.text_User_Usage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label8
             // 
@@ -530,7 +529,6 @@
             this.text_CPU_IP.Name = "text_CPU_IP";
             this.text_CPU_IP.Size = new System.Drawing.Size(193, 28);
             this.text_CPU_IP.TabIndex = 13;
-            this.text_CPU_IP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_User_Area
             // 
@@ -539,7 +537,6 @@
             this.text_User_Area.Name = "text_User_Area";
             this.text_User_Area.Size = new System.Drawing.Size(193, 28);
             this.text_User_Area.TabIndex = 15;
-            this.text_User_Area.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Cb_User_Team_c
             // 
@@ -568,7 +565,6 @@
             this.text_User_Name.Name = "text_User_Name";
             this.text_User_Name.Size = new System.Drawing.Size(193, 28);
             this.text_User_Name.TabIndex = 14;
-            this.text_User_Name.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // dtp_Purchase_Date
             // 
@@ -587,7 +583,6 @@
             this.text_CPU_Num.Name = "text_CPU_Num";
             this.text_CPU_Num.Size = new System.Drawing.Size(193, 28);
             this.text_CPU_Num.TabIndex = 17;
-            this.text_CPU_Num.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label11
             // 
