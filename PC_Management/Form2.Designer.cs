@@ -283,11 +283,11 @@
             // text_Serial2
             // 
             this.text_Serial2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.text_Serial2.Location = new System.Drawing.Point(391, 396);
+            this.text_Serial2.Location = new System.Drawing.Point(391, 392);
             this.text_Serial2.Margin = new System.Windows.Forms.Padding(4);
             this.text_Serial2.Multiline = true;
             this.text_Serial2.Name = "text_Serial2";
-            this.text_Serial2.Size = new System.Drawing.Size(261, 43);
+            this.text_Serial2.Size = new System.Drawing.Size(261, 50);
             this.text_Serial2.TabIndex = 5;
             this.text_Serial2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
